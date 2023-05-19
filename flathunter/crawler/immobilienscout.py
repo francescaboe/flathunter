@@ -128,6 +128,10 @@ class CrawlImmobilienscout(Crawler):
 
     def get_entries_from_json(self, json):
         """Get entries from JSON"""
+        # resultlistEntry is the array containing all the entries.
+        # parse(...).find creates an array of all values for the given path.
+        # since we only have one result from that (resultlistEntry), we can take the first element of the array.
+        # and then extract the value with .value
         return [
             self.extract_entry_from_javascript(entry)
                 for entry in self.JSON_PATH_PARSER_ENTRIES_ARRAY.find(json)[0].value
