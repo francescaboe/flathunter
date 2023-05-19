@@ -34,6 +34,7 @@ class CrawlImmobilienscout(Crawler):
 
     URL_PATTERN = STATIC_URL_PATTERN
 
+    JSON_PATH_PARSER_ENTRIES_ARRAY = parse("$..['resultlistEntry']")
     JSON_PATH_PARSER_ENTRIES = parse("$..['resultlist.realEstate']")
     JSON_PATH_PARSER_IMAGES = parse("$..galleryAttachments..['@href']")
 
@@ -128,11 +129,11 @@ class CrawlImmobilienscout(Crawler):
     def get_entries_from_json(self, json):
         """Get entries from JSON"""
         return [
-            self.extract_entry_from_javascript(entry.value)
-                for entry in self.JSON_PATH_PARSER_ENTRIES.find(json)
+            self.extract_entry_from_javascript(entry)
+                for entry in self.JSON_PATH_PARSER_ENTRIES_ARRAY.find(json)[0].value
         ]
 
-    def extract_entry_from_javascript(self, entry):
+    def extract_entry_from_javascript(self, entryObj):
         """Get single entry from JavaScript"""
 
         # the url that is being returned to the frontend has a placeholder for screen size.
@@ -144,6 +145,14 @@ class CrawlImmobilienscout(Crawler):
         # https://pictures.immobilienscout24.de/listings/$$IMAGE_ID$$.jpg/ORIG/legacy_thumbnail/%WIDTH%x%HEIGHT%3E/format/webp/quality/50
         #
         # After: https://pictures.immobilienscout24.de/listings/$$IMAGE_ID$$.jpg
+        entry = entryObj.get("resultlist.realEstate", {})
+
+        publish_date_before = entryObj.get("@publishDate", '')
+        if publish_date_before:
+           parsed_date = datetime.datetime.strptime(publish_date_before, "%Y-%m-%dT%H:%M:%S.%f%z")
+           publish_date = parsed_date.strftime("%d %b %y %H:%M")
+        else:
+           publish_date = ''
 
         images = [
             image.value[:image.value.find(".jpg") + 4]
@@ -163,7 +172,8 @@ class CrawlImmobilienscout(Crawler):
             'total_price':
                 str(entry.get('calculatedTotalRent', {}).get("totalRent", {}).get('value', '')),
             'size': str(entry.get("livingSpace", '')),
-            'rooms': str(entry.get("numberOfRooms", ''))
+            'rooms': str(entry.get("numberOfRooms", '')),
+            'publish_date': publish_date
         }
 
     def set_cookie(self):
