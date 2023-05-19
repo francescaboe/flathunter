@@ -37,6 +37,7 @@ def launch_flat_hunt(config, heartbeat: Heartbeat):
 
     while config.loop_is_active():
         wait_during_period(time_from, time_till)
+        logger.info('Hello')
 
         counter += 1
         counter = heartbeat.send_heartbeat(counter)
