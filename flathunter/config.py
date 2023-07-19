@@ -198,7 +198,7 @@ Preis: {price}
 
     def loop_period_seconds(self):
         """Number of seconds to wait between crawls when looping"""
-        return self._read_yaml_path('loop.sleeping_time', 20)
+        return self._read_yaml_path('loop.sleeping_time', 2)
 
     def loop_pause_from(self):
         """Start time of loop pause"""
