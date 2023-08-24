@@ -29,7 +29,7 @@ def get_result_count(soup: BeautifulSoup) -> int:
         return 0
     return int(count_element.text.replace('.', ''))
 
-class CrawlImmobilienscout(Crawler):
+class Immobilienscout(Crawler):
     """Implementation of Crawler interface for ImmobilienScout"""
 
     URL_PATTERN = STATIC_URL_PATTERN

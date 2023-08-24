@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup, Tag
 from flathunter.logging import logger
 from flathunter.abstract_crawler import Crawler
 
-class CrawlImmowelt(Crawler):
+class Immowelt(Crawler):
     """Implementation of Crawler interface for ImmoWelt"""
 
     URL_PATTERN = re.compile(r'https://www\.immowelt\.de')
@@ -75,7 +75,10 @@ class CrawlImmowelt(Crawler):
             except IndexError:
                 rooms = ""
 
-            url = expose_ids[idx].get("href")
+            try:
+                url = expose_ids[idx].get("href")
+            except IndexError:
+                continue
 
             picture = expose_ids[idx].find("picture")
             image = None
@@ -89,7 +92,7 @@ class CrawlImmowelt(Crawler):
                     "div", attrs={"class": re.compile("IconFact.*")}
                   )
                 address = address.find("span").text
-            except IndexError:
+            except (IndexError, AttributeError):
                 address = ""
 
             processed_id = int(

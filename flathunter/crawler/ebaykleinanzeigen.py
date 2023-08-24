@@ -7,7 +7,7 @@ from bs4 import Tag
 from flathunter.logging import logger
 from flathunter.abstract_crawler import Crawler
 
-class CrawlEbayKleinanzeigen(Crawler):
+class EbayKleinanzeigen(Crawler):
     """Implementation of Crawler interface for Ebay Kleinanzeigen"""
 
     URL_PATTERN = re.compile(r'https://www\.kleinanzeigen\.de')

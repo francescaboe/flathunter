@@ -166,11 +166,13 @@ mattermost:
 # Sending messages using Apprise requires an Apprise url.
 # Apprise allows to send notifications to a wide variety of services.
 # You can find a description how to set up an Apprise url with the official
-# documentation: https://github.com/caronc/apprise 
+# documentation: https://github.com/caronc/apprise
+# Signal notifications are documented here https://github.com/caronc/apprise/wiki/Notify_signal
 #
 # apprise:
 #   - gotifys://...
 #   - mailto://..
+#   - signal://localhost:9922/{FromPhoneNo}
 apprise:
 
 # Sending messages to a Slack channel requires a webhook url. You can find 

@@ -107,7 +107,7 @@ $ git clone https://github.com/flathunters/flathunter.git
 ```
 add a new User and configure the permissions
 ```sh
-$ useradd flathunter
+$ useradd -m flathunter
 $ chown flathunter:flathunter -R flathunter/
 ```
 Next install pipenv for the new user

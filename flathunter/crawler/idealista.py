@@ -4,7 +4,7 @@ import re
 from flathunter.logging import logger
 from flathunter.abstract_crawler import Crawler
 
-class CrawlIdealista(Crawler):
+class Idealista(Crawler):
     """Implementation of Crawler interface for Idealista"""
 
     URL_PATTERN = re.compile(r'https://www\.idealista\.it')

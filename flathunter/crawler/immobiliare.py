@@ -5,7 +5,7 @@ from flathunter.logging import logger
 from flathunter.abstract_crawler import Crawler
 
 
-class CrawlImmobiliare(Crawler):
+class Immobiliare(Crawler):
     """Implementation of Crawler interface for Immobiliare"""
 
     URL_PATTERN = re.compile(r'https://www\.immobiliare\.it')
@@ -42,8 +42,8 @@ class CrawlImmobiliare(Crawler):
             details_list = row.find(
                 "ul", {"class": "in-realEstateListCard__features"})
 
-            price_li = details_list.find(
-                "li", {"class": "in-realEstateListCard__features--main"})
+            price_li = row.find(
+                "div", {"class": "in-realEstateListCard__priceOnTop"})
 
             price_re = re.match(
                 r".*\s([0-9]+.*)$",
