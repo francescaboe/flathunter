@@ -392,3 +392,8 @@ Other contributions were made along the way by:
 ## Contributing
 
 If you want to make a contribution, please check out the contributor code of conduct ([EN 🇬🇧](CODE_OF_CONDUCT.en.md)/[DE 🇩🇪](CODE_OF_CONDUCT.de.md)) first. Pull requests are very welcome, as are [issues](https://github.com/flathunters/flathunter/issues). If you file an issue, please include as much information as possible about how to reproduce the issue.
+
+
+undetected_chromedriver error
+(from https://github.com/ultrafunkamsterdam/undetected-chromedriver/pull/1478#issuecomment-1680979672)
+pip install -e git+https://github.com/jdholtz/undetected-chromedriver.git@29551bd27954dacaf09864cf77935524db642c1b#egg=undetected_chromedriver
